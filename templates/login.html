@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+    
+    <form action="" method="post">
+    <p>
+	    <label for="text">Username</label>
+	    <input type="text" name="username">
+	</p>
+	<p>
+	    <label for="password">Password</label>
+	    <input type="password" name="password">
+	</p>
+	<p>
+	    <label for="text">Access key ID</label>
+	    <input type="text" name="access_key">
+	</p>
+	<p>
+	    <label for="text">Secret access key</label>
+	    <input type="password" name="secret_key">
+	</p>
+	<p>
+	    <label for="text">Console login link</label>
+	    <input type="text" name="aws_link">
+	</p>
+	<p>
+	    <input type="submit">
+	</p>
+    </form>
+    
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+<style>
+.submit {text-align: center;}
+</style>
+
+</head>
+
+<body>    
+    <form action="" method="post">
+        <dir>
+	    <label for="web_application_name">Name</label>
+	    <input type="text" name="name">
+	</dir>
+	<dir>
+    	<label for="url">Web Application URL</label>
+        <dir>
+            <label for="http">http://</label>
+            <input type="text" name="url">
+        </dir>
+	</dir>
+    <br><br>
+	<dir>
+		<input type="checkbox" name="owasp">
+        <label for="owasp">OWASP ZAP</label><br><br>
+		<input type="checkbox" name="wapiti">
+        <label for="wapiti">Wapiti</label><br><br>
+		<input type="checkbox" name="nikto">
+        <label for="nikto">Nikto</label><br><br>
+		<input type="checkbox" name="w3af">
+        <label for="w3af">W3af</label><br><br>
+    </dir>
+    <br><br>
+	<dir class="submit">
+	    <input type="submit" value="Scan">
+	</dir>
+    </form>
+    
+</body>
+</html>
