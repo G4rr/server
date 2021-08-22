@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+	
+<style>
+.submit {text-align: center;}
+</style>
 </head>
-<body>
-
-    {% if message %}
-        <p>{{ message }}</p>
-    {% endif %}
-    
+<body>   
     <form action="" method="post">
     <p>
 	    <label for="text">Username</label>
@@ -32,7 +31,7 @@
 	    <input type="text" name="aws_link">
 	</p>
 	<p>
-	    <input type="submit">
+	    <input type="submit" value="Login">
 	</p>
     </form>
     

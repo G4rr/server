@@ -6,6 +6,9 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 '''
 
+import blokstf.btf as btf
+
+
 import os
 
 app = Flask(__name__)
@@ -21,6 +24,9 @@ url=""
 
 export_access_key=""
 export_secret_key=""
+
+aws_region=""
+#ec2_type=""
 
 @app.before_first_request
 def before_first_request():
@@ -63,9 +69,8 @@ def home():
     return render_template('home.html')
 
 #...
-@app.route('/login/', methods=['POST', 'GET'])
+@app.route('/login', methods=['POST', 'GET'])
 def login():
-    message = ''
     if request.method == 'POST':
         #username = request.form.get('username')
         #password = request.form.get('password')
@@ -83,27 +88,31 @@ def login():
             message = "Wrong key2 or password"
 '''
 
-    return render_template('login.html', message=message) 
+    return render_template('login.html') 
  
  
- #@app.route('/aws', methods=['GET', 'POST'])
- #   if request.method == 'POST':
- #       region = request.form.get('region')
- #   return render_template('aws_settings.html')
+@app.route('/aws', methods=['GET', 'POST'])
+def aws_settings():
+    if request.method == 'POST':
+        aws_region = request.form.get('aws-region')
+        #ec2_type = request.form.get('ec2-type')
+    return render_template('aws-settings.html')
  
  
 if __name__ == "__main__":
     app.run() 
 
-def build_aws_infrastructure_file():
-    #with open('', 'w') as aws_file: 
-    print("")
+def build_aws_infrastructure_file(filename="aws-infrastructure/main.py"):
+    with open(filename, 'w') as aws_file: 
+        aws_file.write()
+        
 
 def build_aws_infrastructure():
     os.system(export_access_key)
     os.system(export_secret_key)
 
     print("")
+
 
 
 def build_scan_request():
