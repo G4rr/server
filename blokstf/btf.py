@@ -1,41 +1,140 @@
-
-def get_default_libreries():
+# Blocks of Terraform modules
+def get_provider(provider='aws', region='us-east-1'):
     return '''
-    from constructs import Construct
-    from cdktf import App, TerraformStack, TerraformOutput
-    from imports.aws import AwsProvider, Instance '''
-
-def get_class():
+provider "%s" { 
+  region = "%s"
+}'''%(provider, region)
+    
+    
+def get_aws_availability_zones():
     return '''
-    class MyStack(TerraformStack):
-        def __init__(self, scope: Construct, ns: str):
-            super().__init__(scope, ns)
+data "aws_availability_zones" "available" {}
+    '''
+    
+def get_aws_ami(owners='099720109477', name='name', value='ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*'):
+    return '''
+data "aws_ami" "latest_linux" {
+  owners      = ["%s"]
+  most_recent = true
+  filter {
+    name   = "%s"
+    values = ["%s"]
+  }
+}
+    '''%(owners, name, value)
+    
+def get_aws_security_group():
+    return '''
+resource "aws_security_group" "web_sg" {
+  name_prefix        = "Web_SG-"
+  description = "Dynamic SecurityGroup for WebServers"
+  
+  dynamic "ingress" {
+    for_each = ["22", "80", "443", "8080"]
+    content {
+      from_port   = ingress.value
+      to_port     = ingress.value
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name  = "Dynamic SecurityGroup"
+    Owner = "Oleksii Pryshchepa"
+  }
+    '''
+    
+def get_aws_launch_configuration(instance_type='t2.micro'):
+    return '''
+resource "aws_launch_configuration" "prod_instnc" {
+  name_prefix     = "WebServer-"
+  image_id        = data.aws_ami.latest_linux.id
+  instance_type   = "%s"
+  security_groups = [aws_security_group.web_sg.id]
+
+  user_data = file("pentool-setup.sh")
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+    '''%(instance_type)
+    
+def get_aws_autoscaling_group():
+    return '''
+resource "aws_autoscaling_group" "prod_instnc" {
+  name                 = "ASG-${aws_launch_configuration.prod_instnc.name}"
+  launch_configuration = aws_launch_configuration.prod_instnc.name
+  min_size             = 2
+  max_size             = 3
+  min_elb_capacity     = 2
+  health_check_type    = "ELB"
+  vpc_zone_identifier  = [aws_default_subnet.default_az1.id, aws_default_subnet.default_az2.id]
+  load_balancers       = [aws_elb.prod_instnc.name]
+
+  dynamic "tag" {
+    for_each = {
+      Name  = "WebServer in ASG"
+      Owner = "Oleksii Pryshchepa"
+    }
+    content {
+      key                 = tag.key
+      value               = tag.value
+      propagate_at_launch = true
+    }
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+    '''
+    
+def get_aws_elb():
+    return '''
+resource "aws_elb" "prod_instnc" {
+  name               = "WebServer-on-ELB"
+  availability_zones = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
+  security_groups    = [aws_security_group.web_sg.id]
+  listener {
+    lb_port           = 80
+    lb_protocol       = "http"
+    instance_port     = 80
+    instance_protocol = "http"
+  }
+  health_check {
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    timeout             = 3
+    target              = "HTTP:80/"
+    interval            = 10
+  }
+  tags = {
+    Name = "WebServer-ELB"
+  }
+}
+    '''
+    
+def get_aws_default_subnet():
+    return '''
+resource "aws_default_subnet" "default_az1" {
+  availability_zone = data.aws_availability_zones.available.names[0]
+}
     '''
 
-def get_aws_region(provider='Aws', region='us-east-1'):
+def get_local_file():
     return '''
-        AwsProvider(self, {0}, region='{1}') 
-    '''.format(provider, region)
-
-def get_aws_instance(name="Test", ami="ami-01456a894f71116f2", ec2_type="t2.micro"):
-    return '''
-        ec2 = Instance(self, {0},
-          ami={1},
-          instance_type={2},
-        ) 
-    '''.format(name, ami,ec2_type)
-
-def get_tf_output(output_name='hello_public_ip', value='public_ip'):
-    return '''
-        TerraformOutput(self, {0},
-          value=ec2.{1}
-        )
-    '''.format(output_name, value)
-        
-def get_app(app_name='hello-terraform'):
-    return '''
-    app = App()
-    MyStack(app, {0})
-    app.synth()
-    '''.format(app_name)
+resource "local_file" "dns" {
+  content  = aws_elb.prod_instnc.dns_name
+  filename = "../dns.txt"
+}
+    '''
 

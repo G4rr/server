@@ -7,7 +7,8 @@ from wtforms.validators import DataRequired
 '''
 
 import blokstf.btf as btf
-
+import blokstf.ubtf as ubtf
+import blokstf.bcdktf as bcdktf
 
 import os
 
@@ -65,6 +66,7 @@ def home():
         print(url)
         
         
+        setup()
    
     return render_template('home.html')
 
@@ -81,6 +83,10 @@ def login():
         
         export_access_key='export AWS_ACCESS_KEY_ID='+access_key
         export_secret_key='export AWS_SECRET_ACCESS_KEY='+secret_key
+
+
+        print(export_access_key)
+        print(export_secret_key)
 
         '''if key1 == 'root' and key2 == 'pass':
             message = "Correct key1 and password"
@@ -102,17 +108,31 @@ def aws_settings():
 if __name__ == "__main__":
     app.run() 
 
-def build_aws_infrastructure_file(filename="aws-infrastructure/main.py"):
-    with open(filename, 'w') as aws_file: 
-        aws_file.write()
-        
+def build_infrastructure_tf(filename="aws-infrastructure/setup.tf"):
+    with open(filename, 'w') as aws_tf: 
+        aws_tf.write(btf.get_provider())
+        aws_tf.write(btf.get_aws_availability_zones())
+        aws_tf.write(btf.get_aws_ami())
+        aws_tf.write(btf.get_aws_security_group())
+        aws_tf.write(btf.get_aws_launch_configuration())
+ 
+def build_infrastructure_sh(filename="aws-infrastructure/setup.sh"):
+    with open(filename, 'w') as aws_sh: '
+        aws_sh.write(ubtf.get_default_introduction())
+        #aws_sh.write(ubtf.)
+        #aws_sh.write(ubtf.)
+        #aws_sh.write(ubtf.)
 
 def build_aws_infrastructure():
     os.system(export_access_key)
     os.system(export_secret_key)
 
+    os.system('terraform apply -auto-approve')
+    
     print("")
 
+def destroy_aws_infrastructure():
+    os.system('terraform destroy')
 
 
 def build_scan_request():
@@ -121,4 +141,10 @@ def build_scan_request():
 
 def build_report():
     print("")
+    
+
+def setup():
+    build_infrastructure_tf()
+    build_infrastructure_sh()
+    build_aws_infrastructure()
 
