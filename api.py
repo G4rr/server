@@ -154,7 +154,6 @@ def build_report():
     
 
 def setup():
-    os.system('mkdir aws-iac')
     build_iac_tf()
     build_iac_sh()
     build_aws_iac()
