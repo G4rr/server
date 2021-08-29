@@ -109,7 +109,7 @@ def aws_settings():
 if __name__ == "__main__":
     app.run() 
 
-def build_infrastructure_tf(filename="aws-infrastructure/setup.tf"):
+def build_iac_tf(filename="aws-iac/setup.tf"):
     with open(filename, 'w') as aws_tf: 
         aws_tf.write(btf.get_provider(ak=access_key, sk=secret_key))
         aws_tf.write(btf.get_aws_ami())
@@ -117,27 +117,27 @@ def build_infrastructure_tf(filename="aws-infrastructure/setup.tf"):
         aws_tf.write(btf.get_aws_launch_configuration())
         print("Terraform file has been created")
  
-def build_infrastructure_sh(filename="aws-infrastructure/setup.sh"):
+def build_iac_sh(filename="aws-iac/setup.sh"):
     with open(filename, 'w') as aws_sh:
         aws_sh.write(udtf.get_default_introduction())
         print("User data file has been created")
 
-def build_aws_infrastructure():
+def build_aws_iac():
     export_access_key='export AWS_ACCESS_KEY_ID='+access_key
     export_secret_key='export AWS_SECRET_ACCESS_KEY='+secret_key
     os.system(export_access_key)
     os.system(export_secret_key)
-    os.system('cd aws-infrastructure')
+    os.system('cd aws-iac')
     os.system('terraform init')
     os.system('terraform apply -auto-approve')
     
     print("Successful")
 
-def destroy_aws_infrastructure():
-    os.system('cd aws-infrastructure')
+def destroy_aws_iac():
+    os.system('cd aws-iac')
     os.system('terraform destroy')
     os.system('cd ../')
-    os.system('rm -rf aws-infrastructure')
+    os.system('rm -rf aws-iac')
 
 
 def build_scan_request():
@@ -149,8 +149,8 @@ def build_report():
     
 
 def setup():
-    os.system('mkdir aws-infrastructure')
-    build_infrastructure_tf()
-    build_infrastructure_sh()
-    build_aws_infrastructure()
+    os.system('mkdir aws-iac')
+    build_iac_tf()
+    build_iac_sh()
+    build_aws_iac()
 
