@@ -102,6 +102,7 @@ def aws_settings():
     if request.method == 'POST':
         aws_region = request.form.get('aws-region')
         #ec2_type = request.form.get('ec2-type')
+        setup()
     return render_template('aws-settings.html')
  
  
