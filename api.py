@@ -6,9 +6,9 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 '''
 
-import blokstf.btf as btf
-import blokstf.ubtf as ubtf
-import blokstf.bcdktf as bcdktf
+import blockstf.btf as btf
+import blockstf.udtf as udtf
+import blockstf.bcdktf as bcdktf
 
 import os
 
@@ -23,8 +23,8 @@ app.config["DEBUG"] = True
 application_scan_name=""
 url=""
 
-export_access_key=""
-export_secret_key=""
+#export_access_key=""
+#export_secret_key=""
 
 aws_region=""
 #ec2_type=""
@@ -81,8 +81,8 @@ def login():
         #aws_link = request.form.get('aws_link')
         
         
-        export_access_key='export AWS_ACCESS_KEY_ID='+access_key
-        export_secret_key='export AWS_SECRET_ACCESS_KEY='+secret_key
+        #export_access_key='export AWS_ACCESS_KEY_ID='+access_key
+        #export_secret_key='export AWS_SECRET_ACCESS_KEY='+secret_key
 
 
         print(export_access_key)
@@ -110,18 +110,14 @@ if __name__ == "__main__":
 
 def build_infrastructure_tf(filename="aws-infrastructure/setup.tf"):
     with open(filename, 'w') as aws_tf: 
-        aws_tf.write(btf.get_provider())
-        aws_tf.write(btf.get_aws_availability_zones())
+        aws_tf.write(btf.get_provider(ak=access_key, sk=secret_key))
         aws_tf.write(btf.get_aws_ami())
         aws_tf.write(btf.get_aws_security_group())
         aws_tf.write(btf.get_aws_launch_configuration())
  
 def build_infrastructure_sh(filename="aws-infrastructure/setup.sh"):
-    with open(filename, 'w') as aws_sh: '
-        aws_sh.write(ubtf.get_default_introduction())
-        #aws_sh.write(ubtf.)
-        #aws_sh.write(ubtf.)
-        #aws_sh.write(ubtf.)
+    with open(filename, 'w') as aws_sh:
+        aws_sh.write(udtf.get_default_introduction())
 
 def build_aws_infrastructure():
     os.system(export_access_key)
@@ -144,6 +140,7 @@ def build_report():
     
 
 def setup():
+    os.system('mkdir aws-intrastructure')
     build_infrastructure_tf()
     build_infrastructure_sh()
     build_aws_infrastructure()

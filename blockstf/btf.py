@@ -1,9 +1,11 @@
 # Blocks of Terraform modules
-def get_provider(provider='aws', region='us-east-1'):
+def get_provider(provider='aws', region='us-east-1' ak, sk):
     return '''
 provider "%s" { 
   region = "%s"
-}'''%(provider, region)
+  access_key = "%s"
+  secret_key = "%s"
+}'''%(provider, region, ak, sk)
     
     
 def get_aws_availability_zones():
@@ -50,6 +52,7 @@ resource "aws_security_group" "web_sg" {
     Name  = "Dynamic SecurityGroup"
     Owner = "Oleksii Pryshchepa"
   }
+ }
     '''
     
 def get_aws_launch_configuration(instance_type='t2.micro'):
@@ -60,7 +63,7 @@ resource "aws_launch_configuration" "prod_instnc" {
   instance_type   = "%s"
   security_groups = [aws_security_group.web_sg.id]
 
-  user_data = file("pentool-setup.sh")
+  user_data = file("setup.sh")
 
   lifecycle {
     create_before_destroy = true
