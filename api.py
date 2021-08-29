@@ -134,7 +134,10 @@ def build_aws_infrastructure():
     print("Successful")
 
 def destroy_aws_infrastructure():
+    os.system('cd aws-infrastructure')
     os.system('terraform destroy')
+    os.system('cd ../')
+    os.system('rm -rf aws-infrastructure')
 
 
 def build_scan_request():
@@ -146,7 +149,7 @@ def build_report():
     
 
 def setup():
-    os.system('mkdir aws-intrastructure')
+    os.system('mkdir aws-infrastructure')
     build_infrastructure_tf()
     build_infrastructure_sh()
     build_aws_infrastructure()
