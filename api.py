@@ -23,8 +23,8 @@ app.config["DEBUG"] = True
 application_scan_name=""
 url=""
 
-#export_access_key=""
-#export_secret_key=""
+access_key=""
+secret_key=""
 
 aws_region=""
 #ec2_type=""
@@ -85,8 +85,8 @@ def login():
         #export_secret_key='export AWS_SECRET_ACCESS_KEY='+secret_key
 
 
-        print(export_access_key)
-        print(export_secret_key)
+        print(access_key)
+        print(secret_key)
 
         '''if key1 == 'root' and key2 == 'pass':
             message = "Correct key1 and password"
