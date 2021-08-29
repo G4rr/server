@@ -23,6 +23,9 @@ app.config["DEBUG"] = True
 application_scan_name=""
 url=""
 
+export_access_key=""
+export_secret_key=""
+
 access_key=""
 secret_key=""
 
@@ -60,11 +63,8 @@ def home():
         application_scan_name = request.form.get('name')
         url = request.form.get('url')
         
-        
-        
         print(application_scan_name)
-        print(url)
-        
+        print(url)       
         
         setup()
    
@@ -81,8 +81,8 @@ def login():
         #aws_link = request.form.get('aws_link')
         
         
-        #export_access_key='export AWS_ACCESS_KEY_ID='+access_key
-        #export_secret_key='export AWS_SECRET_ACCESS_KEY='+secret_key
+        export_access_key='export AWS_ACCESS_KEY_ID='+access_key
+        export_secret_key='export AWS_SECRET_ACCESS_KEY='+secret_key
 
 
         print(access_key)
@@ -115,18 +115,23 @@ def build_infrastructure_tf(filename="aws-infrastructure/setup.tf"):
         aws_tf.write(btf.get_aws_ami())
         aws_tf.write(btf.get_aws_security_group())
         aws_tf.write(btf.get_aws_launch_configuration())
+        print("Terraform file has been created")
  
 def build_infrastructure_sh(filename="aws-infrastructure/setup.sh"):
     with open(filename, 'w') as aws_sh:
         aws_sh.write(udtf.get_default_introduction())
+        print("User data file has been created")
 
 def build_aws_infrastructure():
+    export_access_key='export AWS_ACCESS_KEY_ID='+access_key
+    export_secret_key='export AWS_SECRET_ACCESS_KEY='+secret_key
     os.system(export_access_key)
     os.system(export_secret_key)
-
+    os.system('cd aws-infrastructure')
+    os.system('terraform init')
     os.system('terraform apply -auto-approve')
     
-    print("")
+    print("Successful")
 
 def destroy_aws_infrastructure():
     os.system('terraform destroy')

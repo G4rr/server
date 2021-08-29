@@ -1,5 +1,5 @@
 # Blocks of Terraform modules
-def get_provider(provider='aws', region='us-east-1' ak, sk):
+def get_provider(ak, sk, provider='aws', region='us-east-1'):
     return '''
 provider "%s" { 
   region = "%s"
