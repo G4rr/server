@@ -31,6 +31,7 @@ secret_key=""
 
 aws_region=""
 #ec2_type=""
+public_key=""
 
 @app.before_first_request
 def before_first_request():
@@ -101,6 +102,7 @@ def aws_settings():
     if request.method == 'POST':
         aws_region = request.form.get('aws-region')
         #ec2_type = request.form.get('ec2-type')
+        public_key = request.form.get('public-key')
         setup()
         return render_template('home.html')
     return render_template('aws-settings.html')
@@ -109,13 +111,21 @@ def aws_settings():
 if __name__ == "__main__":
     app.run() 
 
+
+
+def chdir(func):
+    os.chdir('aws-iac')
+    func()
+    os.chdir('../')
+
+
 def build_iac_tf(filename="aws-iac/setup.tf"):
     with open(filename, 'w') as aws_tf: 
         print(access_key)
         print(secret_key)
         aws_tf.write(btf.get_provider(ak=access_key, sk=secret_key))
+        aws_tf.write(btf.get_aws_key_pair())
         aws_tf.write(btf.get_aws_instance())
-        #aws_tf.write(btf.get_aws_ami())
         aws_tf.write(btf.get_aws_security_group())
         print("Terraform file has been created")
  
@@ -123,21 +133,16 @@ def build_iac_sh(filename="aws-iac/setup.sh"):
     with open(filename, 'w') as aws_sh:
         aws_sh.write(udtf.get_default_introduction())
         print("User data file has been created")
-
+@chdir
 def build_aws_iac():
-    #os.system(export_access_key)
-    #os.system(export_secret_key)
-    os.system('cd aws-iac')
     os.system('terraform init')
     os.system('terraform apply -auto-approve')
     
     print("Successful")
 
+@chdir
 def destroy_aws_iac():
-    os.system('cd aws-iac')
     os.system('terraform destroy')
-    os.system('cd ../')
-    os.system('rm -rf aws-iac')
 
 
 def build_scan_request():

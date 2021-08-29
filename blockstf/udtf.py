@@ -17,6 +17,9 @@ sudo apt update -y
 sudo apt install docker-ce docker-ce-cli containerd.io -y
 sudo systemctl status docker
 sudo usermod -aG docker $USER
+
+python3 -m http.server
+
     '''.format()
 
 def get_docker(option='', command='', c_option=''):

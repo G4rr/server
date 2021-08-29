@@ -12,7 +12,15 @@ def get_aws_availability_zones():
     return '''
 data "aws_availability_zones" "available" {}
     '''
-    
+ 
+def get_aws_key_pair(public_key):
+    return '''
+resource "aws_key_pair" "pub_key" {
+  key_name   = "SSH-key"
+  public_key = "%s"
+}
+    '''%(public_key)
+ 
 def get_aws_ami(owners='099720109477', name='name', value='ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*'):
     return '''
 data "aws_ami" "latest_linux" {
@@ -30,6 +38,10 @@ def get_aws_eip():
 resource "aws_eip" "my_static_ip" {
   instance = aws_instance.my_webserver.id
   }
+  tags = {
+    Name  = "ElasticIP Test"
+    Owner = "Oleksii Pryshchepa"
+  }
 }
     '''
 
@@ -44,6 +56,10 @@ resource "aws_instance" "my_webserver" {
   lifecycle {
     create_before_destroy = true
   }
+  tags = {
+    Name  = "Test"
+    Owner = "Oleksii Pryshchepa"
+  }
 }    
     '''%(ami, itype)
    
@@ -54,7 +70,7 @@ resource "aws_security_group" "web_sg" {
   description = "Dynamic SecurityGroup for WebServers"
   
   dynamic "ingress" {
-    for_each = ["22", "80", "443", "8080"]
+    for_each = ["22", "80", "443", "8080", "8000", "9000"]
     content {
       from_port   = ingress.value
       to_port     = ingress.value
