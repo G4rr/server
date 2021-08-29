@@ -81,9 +81,8 @@ def login():
         #aws_link = request.form.get('aws_link')
         
         
-        export_access_key='export AWS_ACCESS_KEY_ID='+access_key
-        export_secret_key='export AWS_SECRET_ACCESS_KEY='+secret_key
-
+        #export_access_key='export AWS_ACCESS_KEY_ID='+access_key
+        #export_secret_key='export AWS_SECRET_ACCESS_KEY='+secret_key
 
         print(access_key)
         print(secret_key)
@@ -93,7 +92,7 @@ def login():
         else:
             message = "Wrong key2 or password"
 '''
-
+        return render_template('aws-settings.html')
     return render_template('login.html') 
  
  
@@ -103,6 +102,7 @@ def aws_settings():
         aws_region = request.form.get('aws-region')
         #ec2_type = request.form.get('ec2-type')
         setup()
+        return render_template('home.html')
     return render_template('aws-settings.html')
  
  
@@ -114,7 +114,7 @@ def build_iac_tf(filename="aws-iac/setup.tf"):
         print(access_key)
         print(secret_key)
         aws_tf.write(btf.get_provider(ak=access_key, sk=secret_key))
-        aws_tf.write(btf.get_aws_instace())
+        aws_tf.write(btf.get_aws_instance())
         #aws_tf.write(btf.get_aws_ami())
         aws_tf.write(btf.get_aws_security_group())
         print("Terraform file has been created")
