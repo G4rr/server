@@ -10,9 +10,10 @@ secret_key=""
 def build_infrastructure_tf(filename="aws-infrastructure/setup.tf"):
     with open(filename, 'w') as aws_tf: 
         aws_tf.write(btf.get_provider(region="eu-central-1"))
-        aws_tf.write(btf.get_aws_ami())
+        #aws_tf.write(btf.get_aws_ami())
+        aws_tf.write(btf.get_aws_instace())
         aws_tf.write(btf.get_aws_security_group())
-        aws_tf.write(btf.get_aws_launch_configuration())
+        
         print("Terraform file has been created")
  
 def build_infrastructure_sh(filename="aws-infrastructure/setup.sh"):

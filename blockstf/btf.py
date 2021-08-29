@@ -1,5 +1,5 @@
 # Blocks of Terraform modules
-def get_provider(ak, sk, provider='aws', region='us-east-1'):
+def get_provider(ak, sk, provider='aws', region='eu-central-1'):
     return '''
 provider "%s" { 
   region = "%s"
@@ -24,7 +24,29 @@ data "aws_ami" "latest_linux" {
   }
 }
     '''%(owners, name, value)
-    
+
+def get_aws_eip():
+    return '''
+resource "aws_eip" "my_static_ip" {
+  instance = aws_instance.my_webserver.id
+  }
+}
+    '''
+
+def get_aws_instance(ami='ami-05f7491af5eef733a', itype='t3.micro'):
+    return '''
+resource "aws_instance" "my_webserver" {
+  ami                    = "%s"
+  instance_type          = "%s"
+  vpc_security_group_ids = [aws_security_group.web_sg.id]
+  user_data              = file("setup.sh")
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}    
+    '''%(ami, itype)
+   
 def get_aws_security_group():
     return '''
 resource "aws_security_group" "web_sg" {
