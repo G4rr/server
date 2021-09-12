@@ -1,18 +1,15 @@
 # Blocks of Terraform modules
-def get_provider(ak, sk, provider='aws', region='eu-central-1'):
-    return '''
-provider "%s" { 
+def get_provider(provider='aws', region='eu-central-1'):
+    return '''provider "%s" {
   region = "%s"
-  access_key = "%s"
-  secret_key = "%s"
-}'''%(provider, region, ak, sk)
-    
-    
+}'''%(provider, region)
+
+
 def get_aws_availability_zones():
     return '''
 data "aws_availability_zones" "available" {}
     '''
- 
+
 def get_aws_key_pair(public_key):
     return '''
 resource "aws_key_pair" "pub_key" {
@@ -20,7 +17,7 @@ resource "aws_key_pair" "pub_key" {
   public_key = "%s"
 }
     '''%(public_key)
- 
+
 def get_aws_ami(owners='099720109477', name='name', value='ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*'):
     return '''
 data "aws_ami" "latest_linux" {
@@ -33,19 +30,19 @@ data "aws_ami" "latest_linux" {
 }
     '''%(owners, name, value)
 
-def get_aws_eip():
+def get_aws_eip(tag_name="TEST_EIP", tag_owner="Oleksii Pryshchepa"):
     return '''
 resource "aws_eip" "my_static_ip" {
   instance = aws_instance.my_webserver.id
   }
   tags = {
-    Name  = "ElasticIP Test"
-    Owner = "Oleksii Pryshchepa"
+    Name  = "%s"
+    Owner = "%s"
   }
 }
-    '''
+    '''%(tag_name, tag_owner)
 
-def get_aws_instance(ami='ami-05f7491af5eef733a', itype='t3.micro'):
+def get_aws_instance(ami='ami-05f7491af5eef733a', itype='t3.micro', tag_name="TEST_INSTANCE", tag_owner="Oleksii Pryshchepa"):
     return '''
 resource "aws_instance" "my_webserver" {
   ami                    = "%s"
@@ -57,26 +54,34 @@ resource "aws_instance" "my_webserver" {
     create_before_destroy = true
   }
   tags = {
-    Name  = "Test"
-    Owner = "Oleksii Pryshchepa"
+    Name  = "%s"
+    Owner = "%s"
   }
-}    
-    '''%(ami, itype)
-   
-def get_aws_security_group():
+}
+    '''%(ami, itype, tag_name, tag_owner)
+
+def get_aws_sg():
+    return '''
+resource "aws_security_group_rule" "web_sg" {
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 65535
+  protocol          = "tcp"
+  security_group_id = "sg-123456"
+}
+'''
+
+def get_aws_all_sg(tag_name="TEST_DSG", tag_owner="Oleksii Pryshchepa"):
     return '''
 resource "aws_security_group" "web_sg" {
   name_prefix        = "Web_SG-"
   description = "Dynamic SecurityGroup for WebServers"
-  
-  dynamic "ingress" {
-    for_each = ["22", "80", "443", "8080", "8000", "9000"]
-    content {
-      from_port   = ingress.value
-      to_port     = ingress.value
-      protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
-    }
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
@@ -87,12 +92,12 @@ resource "aws_security_group" "web_sg" {
   }
 
   tags = {
-    Name  = "Dynamic SecurityGroup"
-    Owner = "Oleksii Pryshchepa"
+    Name  = "%s"
+    Owner = "%s"
   }
  }
-    '''
-    
+    '''%(tag_name, tag_owner)
+
 def get_aws_launch_configuration(instance_type='t2.micro'):
     return '''
 resource "aws_launch_configuration" "prod_instnc" {
@@ -108,7 +113,7 @@ resource "aws_launch_configuration" "prod_instnc" {
   }
 }
     '''%(instance_type)
-    
+
 def get_aws_autoscaling_group():
     return '''
 resource "aws_autoscaling_group" "prod_instnc" {
@@ -138,7 +143,7 @@ resource "aws_autoscaling_group" "prod_instnc" {
   }
 }
     '''
-    
+
 def get_aws_elb():
     return '''
 resource "aws_elb" "prod_instnc" {
@@ -163,7 +168,7 @@ resource "aws_elb" "prod_instnc" {
   }
 }
     '''
-    
+
 def get_aws_default_subnet():
     return '''
 resource "aws_default_subnet" "default_az1" {
@@ -178,4 +183,3 @@ resource "local_file" "dns" {
   filename = "../dns.txt"
 }
     '''
-
