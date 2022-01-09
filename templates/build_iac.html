@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<fieldset class="typeB"  role="heading" aria-level="1">
+<form action="" method="post">
+    <legend style="font-size: 16px; font-weight: bold;">General Information</legend>
+    <div class="forms">
+      <dl class="form1">
+        <table  style="border-collapse: collapse; empty-cells: show; height: 200px; width: 125%;">
+          <colgroup>
+            <col style=" width: 0.792in;"></col>
+            <col style=" width: 6.292in;"></col>
+          </colgroup>
+          <tbody>
+            <tr valign="top" align="left">
+              <td>
+                <label for="text">Scanner Appliance Name:</label>
+              </td>
+              <td>
+                 <input type="text" name="sa_name">
+               </td>
+              </tr>
+              <tr valign="top" align="left">
+                <td>
+                  <label for="text">Cloud provider:</label>
+                </td>
+                <td>
+                 <input type="text" name="provider">
+               </td>
+              </tr>
+              <tr valign="top" align="left">
+                <td>
+                 <label for="text">Access key ID:</label>
+                </td>
+                <td>
+                  <input type="text" name="access_key">
+                </td>
+              </tr>
+              <tr valign="top" align="left">
+                <td>
+                  <label for="text">Secret access key:</label>
+                </td>
+                <td>
+                  <input type="text" name="secret_key">
+              </td>
+              </tr>
+            </tbody>
+          </table>
+        </dl>
+      </div>
+
+      <div style="margin-top: 50px;"></div>
+      <legend style="font-size: 16px; font-weight: bold;">Instanse configurations</legend>
+      <div class="forms">
+        <dl class="form1">
+          <table  style="border-collapse: collapse; empty-cells: show; height: 200px; width: 125%;">
+            <colgroup>
+              <col style=" width: 0.792in;"></col>
+              <col style=" width: 6.292in;"></col>
+            </colgroup>
+            <tbody>
+              <tr valign="top" align="left">
+                <td>
+                  <label for="region">Region:</label>
+                </td>
+                <td>
+                  <input type="text" name="region">
+                </td>
+              </tr>
+              <tr valign="top" align="left">
+                <td>
+              	   <label for="type">Instance type (optional):</label>
+                </td>
+                <td>
+                  <input type="text" name="instance_type">
+                </td>
+              </tr>
+              <tr valign="top" align="left">
+                <td>
+                  <label for="vpc">VPC (optional):</label>
+                </td>
+                <td>
+                  <input type="text" name="vpc">
+                </td>
+              </tr>
+              <tr valign="top" align="left">
+                  <td>
+                  <label for="sg">Security Group name (optional):</label>
+                </td>
+                <td>
+                  <input type="text" name="sg_name">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </dl>
+      </div>
+    <br><br>
+  	<div class="submit">
+  	  <input type="submit" value="Deploy" name="deploy">
+      <br><br><br>
+      <input type="submit" name="cancel" value="Cancel">
+  	</div>
+</form>
+{% endblock %}

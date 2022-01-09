@@ -1,8 +1,8 @@
+.dockerignore
+.gitignore
 aws-iac
-docker-compose
 client.py
 convertor.py
 api_aws.py
+.git
 test.py
-.dockerignore
-Dockerfile

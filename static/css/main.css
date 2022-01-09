@@ -1,0 +1,121 @@
+#container {
+    margin: 2em auto;
+    width: 740px;
+    padding: 2em 4em;
+    background: #FFFFFF;
+}
+
+h1, h2 {
+    font-family: 'Droid Serif', serif;
+    font-size: 3em;
+    margin: 0;
+                padding-bottom: 1em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+p, li {
+    font-size: 1.2em;
+}
+
+p.credit {
+        font-size: 0.9em;
+}
+
+img {
+        display: block;
+        margin: auto;
+        max-width: 100%;
+}
+
+/* links */
+
+a {
+    color: #1484bc;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #407189;
+    text-decoration: underline;
+}
+
+
+/* media queries */
+
+@media (max-width: 800px) {
+    body {
+        background: #f1f7dc;
+    }
+    #container {
+        margin: 0;
+        width: 100%;
+        padding: 2em;
+    }
+}
+
+.style_69 { font-family: sans-serif; font-style: normal; font-variant: normal; font-weight: normal; font-size: 10px; color: rgb(153, 153, 153); margin: 0pt; padding: 1pt; border: medium none black; letter-spacing: normal; word-spacing: normal; text-transform: none; white-space: normal; line-height: normal;}
+.style_68 { font-weight: bold; font-size: 8px; color: rgb(102, 102, 102); margin-left: 50pt;}
+.style_8 { margin-top: 20pt;}
+.style_9 { padding-bottom: 1px;}
+.style_7 { margin-right: 10px;}
+.style_118 { font-weight: normal; font-size: 11px; color: gray; margin-top: 10px; margin-bottom: 10px; margin-left: 20px; line-height: normal;}
+.style_119 { font-style: normal; font-weight: bold; font-size: 10px; color: rgb(128, 128, 128); margin-left: 20px; padding-top: 2px; padding-bottom: 2px; padding-left: 0pt; line-height: 16px;}
+.style_117 { margin-left: 10px;}
+.style_0 { font-family: sans-serif; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; color: black; text-indent: 0em; letter-spacing: normal; word-spacing: normal; text-transform: none; white-space: normal; line-height: normal;}
+.style_65 { font-size: 8px; color: rgb(153, 153, 153);}
+.style_114 { font-family: sans-serif; font-style: normal; font-variant: normal; font-weight: bold; font-size: 10px; color: rgb(81, 81, 81); margin: 0pt; padding: 1pt 1pt 1pt 3px; border: medium none black; letter-spacing: normal; word-spacing: normal; text-transform: none; white-space: normal; line-height: normal;}
+.style_1 { font-family: sans-serif; font-weight: bold; font-size: 18px; color: rgb(255, 255, 255); padding: 5px 10px; background-color: rgb(255, 20, 20);}
+.style_64 { font-size: 8px; color: rgb(153, 153, 153); margin-top: 5px;}
+.style_115 { font-family: sans-serif; font-style: normal; font-variant: normal; font-weight: bold; font-size: 11px; color: rgb(102, 102, 102); margin: 0pt; padding: 1pt; border: medium none black; text-indent: 0em; letter-spacing: normal; word-spacing: normal; text-transform: none; white-space: normal; line-height: normal;}
+.style_67 { font-size: 10px; color: rgb(153, 153, 153);}
+.style_112 { font-family: sans-serif; font-style: normal; font-variant: normal; font-weight: bold; font-size: 11px; color: rgb(102, 102, 102); margin: 0pt; padding: 1pt; border: medium none black; letter-spacing: normal; word-spacing: normal; text-transform: none; white-space: normal; line-height: normal;}
+.style_66 { font-weight: bold; font-size: 8px; color: rgb(102, 102, 102); padding-right: 25pt;}
+.style_113 { background-color: rgb(225, 225, 225);}
+.style_4 { font-size: 8pt; color: rgb(102, 102, 102); margin-top: 10px; padding: 5px; border-top: 1px solid rgb(192, 192, 192);}
+.style_61 { font-size: 8px; color: rgb(153, 153, 153);}
+.style_110 { font-family: sans-serif; font-style: normal; font-variant: normal; font-weight: bold; font-size: 11px; color: rgb(102, 102, 102); margin: 0pt; padding: 1pt; border: medium none black; letter-spacing: normal; word-spacing: normal; text-transform: none; white-space: normal; line-height: normal;}
+.style_5 { margin-left: 0px;}
+.style_60 { font-weight: bold; font-size: 8px; color: rgb(49, 49, 49);}
+.style_111 { margin-left: 10px;}
+.style_28 { font-weight: bold;; font-size: 12px; color: rgb(0, 0, 0); margin: 10px 0px; padding: 0pt;}
+.style_2 { font-weight: normal; font-size: 10px; margin: 10px 5px; padding: 10px; background-color: rgb(251, 252, 199);}
+.style_63 { font-weight: bold; font-size: 8px; color: rgb(102, 102, 102); margin-top: 5px;}
+.style_3 { font-family: sans-serif; font-style: normal; font-variant: normal; font-weight: normal; font-size: 8pt; color: rgb(102, 102, 102); margin: 10px 0pt 0pt; padding: 5px; border-top: 1px solid rgb(192, 192, 192); border-right: medium none black; border-bottom: medium none black; border-left: medium none black; text-indent: 0em; letter-spacing: normal; word-spacing: normal; text-transform: none; white-space: normal; line-height: normal;}
+.style_62 { font-size: 10px; color: rgb(153, 153, 153);}
+.style_79 { font-family: sans-serif; font-style: normal; font-variant: normal; font-weight: bold; font-size: 8px; color: rgb(102, 102, 102); margin: 0pt; padding: 1pt; border: medium none black; letter-spacing: normal; word-spacing: normal; text-transform: none; white-space: normal; line-height: normal;}
+.style_70 { color: rgb(51, 51, 51); padding: 5px 10px; border: 2px solid rgb(179, 208, 246); background-color: rgb(229, 241, 255);}
+.style_76 { font-size: 12px; color: rgb(119, 119, 119); margin-top: 10px; margin-bottom: 5px; padding-top: 8px; padding-bottom: 6pt; padding-left: 5px; border-top: 1px solid rgb(119, 119, 119); background-color: rgb(200, 250, 250); line-height: normal;}
+.style_75 { font-size: 9px; margin: 5px; padding: 3px 1px 3px 3px; background-color: rgb(255, 255, 255);}
+.style_78 { font-size: 12px; color: rgb(68, 68, 68); margin-top: 2px; margin-bottom: 5px;}
+.style_77 { font-weight: bold; font-size: 13px; margin-top: 5px; margin-bottom: 0px; line-height: normal;}
+.style_72 { font-weight: bold; font-size: 11px; color: rgb(68, 68, 68); padding: 5px 0px;}
+.style_71 { margin-right: 0pt;}
+.style_74 { font-family: sans-serif; font-style: normal; font-variant: normal; font-weight: normal; font-size: 10px; color: rgb(51, 51, 51); margin: 0pt; padding: 2px 0px; border: medium none black; text-indent: 0em; letter-spacing: normal; word-spacing: normal; text-transform: none; line-height: normal;}
+.style_73 { font-size: 10px; padding: 2px 0px;}
+.style_120 { font-weight: normal; font-size: 11px; color: rgb(128, 128, 128); margin-top: 10px; margin-bottom: 10px; margin-left: 20px; line-height: normal;}
+.style_81 { font-weight: bold; margin-top: 5px; margin-right: 10px; padding: 5px; background-color: rgb(253, 254, 194);}
+.style_80 { font-family: "Courier New"; font-size: 10px; color: rgb(2, 46, 100); margin-top: 3px; margin-right: 20px; margin-left: 3px; padding: 5px; background-color: rgb(254, 255, 211);}
+.style_87 { font-family: "Courier New"; font-size: 8pt; color: rgb(127, 127, 127); margin-top: 2px; margin-right: 2px; margin-left: 2px; padding: 0pt 0pt 10pt;}
+.style_86 { font-weight: bold; margin-top: 10px; margin-right: 10px; padding: 5px; background-color: rgb(255, 231, 221);}
+.style_89 { font-family: "Courier New"; font-size: 8pt; color: rgb(127, 127, 127); margin-top: 2px; margin-right: 2px; margin-left: 2px; padding: 0pt;}
+.style_88 { font-size: 10px; color: rgb(170, 0, 0); margin-top: 5px; margin-bottom: 5px; padding-top: 5px; border-top: 2px solid rgb(221, 221, 221);}
+.style_83 { font-family: "Courier New"; font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; color: rgb(153, 153, 153); margin: 0pt; padding: 5pt; border: medium none black; text-indent: 0em; letter-spacing: normal; word-spacing: normal; text-transform: none; white-space: normal; line-height: normal;}
+.style_82 { font-family: "Courier New"; font-style: normal; font-variant: normal; font-weight: normal; font-size: 11px; color: rgb(153, 153, 153); margin: 2pt 0pt 0pt; padding: 0pt; border: medium none black; text-indent: 0em; letter-spacing: normal; word-spacing: normal; text-transform: none; white-space: normal; line-height: normal;}
+.style_85 { font-family: sans-serif; font-style: italic; font-variant: normal; font-weight: normal; font-size: 9px; color: rgb(68, 68, 68); margin: 5px 5px 2px 0px; padding: 0pt; border: medium none black; text-indent: 0em; letter-spacing: normal; word-spacing: normal; text-transform: none; white-space: normal; line-height: normal;}
+.style_84 { font-family: "Courier New"; font-style: normal; font-variant: normal; font-weight: normal; font-size: 10px; color: rgb(170, 0, 0); margin: 5px 0pt 0pt; padding: 0pt; border: medium none black; text-indent: 0em; letter-spacing: normal; word-spacing: normal; text-transform: none; white-space: normal; line-height: normal;}
+.style_18 { font-size: 11px; color: rgb(69, 69, 69);}
+.style_17 { font-size: 11px; color: rgb(69, 69, 69); white-space: nowrap;}
+.style_19 { font-weight: bold; font-size: 18px; color: rgb(0, 0, 0); margin: 10px 0px; padding: 0pt;}
+.style_14 { margin-top: 0pt;}
+.style_13 { font-size: 12px; color: rgb(112, 112, 112); margin-top: 5px; margin-bottom: 10px; padding: 5px 10px; background-color: rgb(245, 245, 245); line-height: 16px;}
+.style_16 { font-size: 11px; color: rgb(69, 69, 69); white-space: nowrap;}
+.style_90 { font-family: sans-serif; font-size: 12px; color: rgb(119, 119, 119); margin-top: 10px; margin-bottom: 5px; padding-top: 8px; padding-bottom: 6pt; padding-left: 5px; border-top: 1px solid rgb(119, 119, 119); background-color: rgb(238, 238, 238); line-height: normal;}
+.style_91 { font-family: sans-serif; font-style: normal; font-variant: normal; font-weight: normal; font-size: 10px; color: rgb(153, 153, 153); margin: 0pt; padding: 1pt; border: medium none black; text-indent: 0em; letter-spacing: normal; word-spacing: normal; text-transform: none; white-space: normal; line-height: normal;}
+.style_10 { font-weight: bold; font-size: 20px; color: rgb(0, 0, 0); margin: 0px 10px 10px 0px; padding-left: 1pt; background-color: rgb(255, 255, 255);}
+.style_98 { font-family: "Courier New"; font-style: normal; font-variant: normal; font-weight: normal; font-size: 10px; color: rgb(153, 153, 153); margin: 2pt 0pt 0pt; padding: 1pt; border: medium none black; letter-spacing: normal; word-spacing: normal; text-transform: none; white-space: normal; line-height: normal;}
+.style_97 { border: thin solid rgb(0, 0, 0);}
+.style_12 { padding-bottom: 10px;}
+.style_11 { font-weight: bold; font-size: 18px; color: rgb(69, 69, 69); margin: 0px 10px 10px 0px; padding-right: 10px; padding-left: 0pt; background-color: rgb(255, 255, 255);}

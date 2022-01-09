@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+        <meta charset="utf-8">
+        <title>Pentoo Aggregator Scan Report</title>
+        <link href="https://fonts.googleapis.com/css?family=Droid+Serif|Source+Sans+Pro" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+          google.charts.load('current', {packages:['corechart']});
+          google.charts.setOnLoadCallback(findings_by_groups);
+          function findings_by_groups() {
+           var data = google.visualization.arrayToDataTable([
+             ['Group', 'Amount', { role: "style" } ],
+             ['Injection', {{ stats["Injection"] }}, "#7900D4"],
+             ['Cross Site Scripting(XSS)', {{ stats["Cross Site Scripting(XSS)"] }}, "#FF8300"],
+             ['External XML Entity(XXE)', {{ stats["External XML Entity(XXE)"] }}, "#00A207"],
+             ['Sensitive Data Exposure(SDE)', {{ stats["Sensitive Data Exposure(SDE)"] }}, "#D52400"],
+             ['Security Misconfiguration(SM)', {{ stats["Security Misconfiguration(SM)"] }}, "#0072D1"],
+             ['Vulnerability Component(VC)', {{ stats["Vulnerability Component(VC)"] }}, "#00AAFF"],
+             ['Other', {{ stats["Other"] }}, "#EF9700"]
+           ]);
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                          { calc: "stringify",
+                            sourceColumn: 1,
+                            type: "string",
+                            role: "annotation" },
+                          2]);
+
+            var options = {
+               width: 1000,
+               height: 500,
+               bar: {groupWidth: "95%"},
+               legend: { position: "none" },
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("findings_by_groups"));
+               chart.draw(view, options);
+          }
+          google.charts.setOnLoadCallback(findings_by_risk);
+          function findings_by_risk() {
+            var data = google.visualization.arrayToDataTable([
+              ['Risk Level', 'Amount', { role: "style" }],
+              ['Level 0', {{ stats["ASL0"] }}, "#EF9700"],
+              ['Level 1', {{ stats["ASL1"] }}, "#0072D1"],
+              ['Level 2', {{ stats["ASL2"] }}, "#D52400"],
+              ['Level 3', {{ stats["ASL3"] }}, "#00A207"]
+            ]);
+
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                             { calc: "stringify",
+                               sourceColumn: 1,
+                               type: "string",
+                               role: "annotation" },
+                             2]);
+
+            var options = {
+              width: 1000,
+              height: 500,
+              bar: {groupWidth: "95%"},
+              legend: { position: "none" },
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("findings_by_risk"));
+            chart.draw(view, options);
+          }
+
+         google.charts.setOnLoadCallback(findings_by_scanners);
+         function findings_by_scanners() {
+           var data = google.visualization.arrayToDataTable([
+             ['Report', 'Number of unique vulnerabilities'],
+             ['OWASP ZAP', {{ stats["VO"] }}],
+             ['Wapiti', {{ stats["VW"] }}],
+             ['Nikto', {{ stats["VN"] }}],
+             ['Similar', {{ stats["CM"] }}]
+           ]);
+           var chart = new google.visualization.PieChart(document.getElementById('findings_by_scanners'));
+           chart.draw(data);
+         }
+        </script>
+</head>
+<body class="style_0" style=" margin:0px;">
+  <table cellpadding="0" rules="none" border="0" style="empty-cells: show; width:100%;">
+    <col></col>
+    <tr>
+      <td>
+        <table style="border-collapse: collapse; empty-cells: show; width: 100%;">
+          <col></col>
+          <tr valign="top" align="left">
+            <td>
+              <div class="style_1" style=" overflow:hidden;">Pentoo Aggregator Scan Report</div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <table class="style_8" style="border-collapse: collapse; empty-cells: show; width: 100%;" id="__bookmark_4">
+      <colgroup>
+        <col style=" width: 3.917in;">
+        <col style=" width: 4.375in;">
+      </colgroup>
+      <tbody>
+        <tr valid="top" aling="left">
+          <td class="style_9" aling="lefy">
+            <div class="style_10" id="__bookmark_5" style=" overflow:hidden;">
+              Scan Report
+            </div>
+          </td>
+          <td aling="right">
+            <div class="style_11" if="__bookmark_6" style=" overflow:hidden;">
+              {{ data["Date"] }}
+            </div>
+          </td>
+        </tr>
+        <tr valid="top" aling="left">
+          <td class="style_12" colspan="2">
+            <div class="style_13" id="TEST" style=" overflow:hidden;">
+                Vulnerabilities of all selected scans are consolidated into one report so that you can view their.
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="style_14" style="border-collapse: collapse; empty-cells: show; width: 100%;" id="__bookmark_7">
+      <col></col>
+      <col></col>
+      <tr valign="top" align="left">
+        <td align="left">
+          <div class="style_16">{{ data["Owner"] }}</div>
+        </td>
+      </tr>
+      <tr valign="top" align="left">
+        <td align="left">
+          <div class="style_18">Ukraine</div>
+        </td>
+      </tr>
+    </table>
+    <tr valign="top" align="left">
+      <td>
+        <table style="border-collapse: collapse; empty-cells: show; width: 100%;" id="Target and Filters">
+          <col></col>
+          <tr valign="top" align="left">
+            <td>
+              <div class="style_19">Target:</div>
+              <table class="style_20" style="border-collapse: collapse; empty-cells: show;" id="AUTOGENBOOKMARK_4_14cf4b03-1c2f-4e8a-9634-a1067e392876">
+                <col style=" width: 1.844in;"></col>
+                <col style=" width: 6.458in;"></col>
+                <tr valign="top" align="left">
+                  <td>
+                    <span class="style_21" style=" text-align:left;">Scan name:</span>
+                  </td>
+                  <td>
+                    <div class="style_22" id="__bookmark_8" style=" overflow:hidden;">{{ data["Report name"] }}</div>
+                  </td>
+                </tr>
+                <tr valign="top" align="left">
+                  <td>
+                    <span class="style_21" style=" text-align:left;">Web Application:</span>
+                  </td>
+                  <td>
+                    <div class="style_22" id="__bookmark_9">{{ data["Host"] }}</div>
+                  </td>
+                </tr>
+                <tr valign="top" align="left">
+                  <td>
+                    <span class="style_21" style=" text-align:left;">Port:</span>
+                  </td>
+                  <td>
+                    <div class="style_22" id="__bookmark_9">{{ data["Port"] }}</div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr valign="top" align="left">
+      <td>
+        <table class="style_25" style="border-collapse: collapse; empty-cells: show; width: 99%;" id="Summary">
+          <col style=" width: 100px;"></col>
+          <col style=" width: 6.885in;"></col>
+          <tr valign="top" align="left">
+            <td>
+              <div class="style_19">Summary:</div>
+            </td>
+            <td>
+              <table style="border-collapse: collapse; empty-cells: show;" id="__bookmark_12">
+                <col style=" width: 80px;"></col>
+                <col style=" width: 80px;"></col>
+                <col style=" width: 80px;"></col>
+                <col style=" width: 80px;"></col>
+                <tr valign="top" align="left">
+                  <th class="style_26" style=" color: rgb(255, 255, 255);font-weight: normal; border-right: 5px solid rgb(255, 255, 255); background-color: rgb(255, 200, 180);">
+                    <div class="style_28">Security Risk:</div>
+                    <div class="style_28">{{ stats["SR"] }}</div>
+                  </th>
+                  <th class="style_26" style="font-weight: normal; border-right: 5px solid rgb(255, 255, 255);">
+                    <div class="style_28">Vulnerabilities:</div>
+                    <div class="style_28">{{ stats["TCV"] }}</div>
+                  </th>
+                  <th class="style_26" style="font-weight: normal; border-right: 5px solid rgb(255, 255, 255);">
+                    <div class="style_28">Issues:</div>
+                    <div class="style_28">{{ stats["TCI"] }}</div>
+                  </th>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tbody>
+      <div style="font-weight: bold; font-size: 18px; color: rgb(0, 0, 0); margin: 50px 0px;">Findings by risk:</div>
+      <div id="findings_by_risk" style="width: 900px; height: 500px;"></div>
+      <p style="font-weight: bold; font-size: 18px; color: rgb(0, 0, 0); margin: 50px 0px; padding: 0pt;">Findings by Groups:</p>
+      <div id="findings_by_groups" style="width: 900px; height: 500px;"></div>
+      <p style="font-weight: bold; font-size: 18px; color: rgb(0, 0, 0); margin: 50px 0px; padding: 0pt;">Percent of vulnerabilities from the different reports:</p>
+      <div id="findings_by_scanners" style="width: 900px; height: 500px;"></div>
+    </tbody>
+    <div class="report">
+      <div class="alerts">
+        <div align="center" style="font-size: 18px; font-weight: bold; color: rgb(50, 50, 50); margin-top: 10px; margin-bottom: 5px; padding-top: 8px; padding-bottom: 6pt; padding-left: 5px; border-top: 1px solid rgb(150, 150, 100); background-color: rgb(50, 200, 255); line-height: normal;">
+          Results ({{ stats["TCV"] }})
+        </div>
+        {% for group_name in alerts: %}
+            <td>
+              <div align="center" style="font-size: 16px; font-weight: bold; color: rgb(50, 50, 50); margin-top: 10px; margin-bottom: 5px; padding-top: 25px; background-color: rgb(110, 220, 255); line-height: normal;">{{ group_name }}:</div>
+            </td>
+            <div class="">
+              {% for item in alerts[group_name]: %}
+                <div style="font-size: 14px; font-weight: bold; color: rgb(0, 0, 0); margin-top: 10px; margin-bottom: 5px; padding-top: 20px; background-color: rgb(170, 200, 255); line-height: normal;">{{ item["name"] }}</div>
+                <div style="font-size: 12px; font-weight: bold; color: rgb(0, 0, 0);">Sevurity Risk Level: {{ item["risk"] }}</div>
+                <div style="font-size: 10px; font-weight: bold; color: rgb(0, 0, 0);">Mark: {{ item["mark"] }}</div>
+                <div class="style_76";>Details</div>
+                <div class="style_77";>Description:</div>
+                <div class="style_78">
+                  {{ item["desc"] }}
+                </div>
+                <div class="style_77";>Sollution:</div>
+                <div class="style_78";>
+                  {{ item["solution"] }}
+                </div>
+                <div class="style_77";>Useful reference:</div>
+                <div class="style_78";>
+                  {{ item["reference"] }}
+                </div>
+                <div class="style_77";>Other Information:</div>
+                <div class="style_78";>
+                  {{ item["other"] }}
+                </div>
+                <div class="">
+                  <div class="style_76";><strong>Payloads ({{ item["count"] }})</strong></div>
+                  <div class="">
+                    {% for issue in item["issues"]: %}
+                      <div class="">
+                        <tbody>
+                          <tr>
+                            <td>
+                              <div class="style_82">
+                                |{{ issue["method"] }} -- {{ issue["uri"] }}
+                                <br>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="style_83">
+                                {% if issue["attack"] != "" %}
+                                  |Attack: {{ issue["attack"] }}
+                                  <br>
+                                {% endif %}
+                                {% if issue["param"] != "" %}
+                                  |Param: {{ issue["param"] }}
+                                  <br>
+                                {% endif %}
+                                {% if issue["evidence"] != "" %}
+                                  |Evidence: {{ issue["evidence"] }}
+                                  <br>
+                                {% endif %}
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </div>
+                      {% endfor %}
+                  </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+          </div>
+      </div>
+    </table>
+    <table style="border-collapse: collapse; empty-cells: show; width: 100%;">
+      <col></col>
+      <tbody>
+        <div style="margin-top: 50px;"></div>
+        <div align="center" style="font-size: 16px; font-weight: bold; color: rgb(50, 50, 50); margin-top: 10px; margin-bottom: 5px; padding-top: 30px; padding-bottom: 6pt; padding-left: 5px; background-color: rgb(200, 200, 200); line-height: normal;">Severity Level</div>
+        <tr valign="top" align="left">
+          <td>
+            <div id="Appendix-SeverityLevels-Vuln">
+    					<div class="style_118" >Vulnerabilities are design flaws, programming errors, or mis-configurations that make your web application and web application platform susceptible to malicious attacks. Depending on the level of the security risk, the successful exploitation of a vulnerability can vary from the disclosure of information to a complete compromise of the web application and/or the web application platform. Even if the web application isn't fully compromised, an exploited vulnerability could still lead to the web application being used to launch attacks against users of the site.</div>
+    					<table class="style_119" style="border-collapse: collapse; empty-cells: show; height: 200px; width: 95%;">
+                <colgroup>
+      						<col style=" width: 0.792in;"></col>
+      						<col style=" width: 6.292in;"></col>
+                </colgroup>
+                <tbody>
+                  <tr valign="top" align="left">
+                    <td>
+                    	<span class="style_21" style=" text-align:left;">0</span>
+                    </td>
+                    <td>
+                    	<div class="style_22" >Basic information disclosure (e.g. web server type, programming language) might enable intruders to discover other vulnerabilities, but lack of this information does not make the vulnerability harder to find.</div>
+                    </td>
+                  </tr>
+                  <tr valign="top" align="left">
+                    <td>
+                    	<span class="style_21" style=" text-align:left;">1</span>
+                    </td>
+                    <td>
+                    	<div class="style_22" >Intruders may be able to collect sensitive information about the application platform, such as the precise version of software used. With this information, intruders can easily exploit known vulnerabilities specific to software versions. Other types of sensitive information might disclose a few lines of source code or hidden directories.</div>
+                    </td>
+                  </tr>
+                  <tr valign="top" align="left">
+                    <td>
+                    	<span class="style_21" style=" text-align:left;">2</span>
+                    </td>
+                    <td>
+                    	<div class="style_22" >Vulnerabilities at this level typically disclose security-related information that could result in misuse or an exploit. Examples include source code disclosure or transmitting authentication credentials over non-encrypted channels.</div>
+                    </td>
+                  </tr>
+                  <tr valign="top" align="left">
+                    <td>
+                    	<span class="style_21" style=" text-align:left;">3</span>
+                    </td>
+                    <td>
+                    	<div class="style_22">Intruders can exploit the vulnerability to gain highly sensitive content or affect other users of the web application. Examples include certain types of cross-site scripting and SQL injection attacks.</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table class="style_119" style="border-collapse: collapse; empty-cells: show; height: 200px; width: 95%;">
+            <colgroup>
+              <col>
+            </colgroup>
+            <tbody>
+              <tr valign="top" align="left">
+                <td>
+                  <div class="style_4" style=" overflow:hidden">
+                    PENTOO AGGREGATOR SCAN REPORT.
+                    <br>
+                    By Oleksii Pryshchepa (GitHub: G4rr)
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+        </tr>
+      </tbody>
+    </table>
+</body>
+</html>

@@ -1,44 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Scan-Settings</title>
+{% extends 'base.html' %}
 
-<style>
-.submit {text-align: center;}
-</style>
-
-</head>
-
-<body>    
-    <form action="" method="post">
-        <dir>
-	    <label for="web_application_name">Name</label>
-	    <input type="text" name="name">
-	</dir>
-	<dir>
-    	<label for="url">Web Application URL</label>
-        <dir>
-            <label for="http">http://</label>
-            <input type="text" name="url">
-        </dir>
-	</dir>
+{% block body %}
+<fieldset class="typeB"  role="heading" aria-level="1">
+  <form action="" method="post">
+  <legend style="font-size: 16px;"><strong>General Information</strong></legend>
+  <div class="forms">
+    <dl class="form1">
+      <div class="" tabindex="0">Give your scan a name, select level of deep scanning and choose a scanner.</div>
+    	 <dt style="margin-top: 10px;">
+         <label for="scan_report_title">Title:</label>
+       </dt>
+    	 <dd>
+         <input type="text" name="scan_report_title">
+       </dd>
+       <dt style="margin-top: 10px;">
+         <label for="level">Level:</label>
+       </dt>
+       <dd>
+         <select class="scan_level" name="scan_level">
+           <option value="1">High</option>
+           <option value="2">Normal</option>
+           <option value="3">Low</option>
+         </select>
+       </dd>
+       <dt style="margin-top: 10px;">
+         <label for="scanner_app">Scanner Appliance:</label>
+       </dt>
+    	 <dd>
+         <input type="text" name="scanner_app">
+       </dd>
+     </dl>
+    </div>
+    <div style="margin-top: 50px;"></div>
+    <legend style="font-size: 16px;"><strong>Choose Target Host</strong></legend>
+    <div class="forms">
+      <dl class="form1">
+        <dt style="margin-top: 10px;">
+          <label for="url">URL:</label>
+        </dt>
+        <dd>
+          <input type="text" name="url">
+    	  </dd>
+        <th class="style_26">
+        	<div style="margin-top: 20px;">
+        		<input type="checkbox" name="owasp">
+            <label for="owasp">OWASP ZAP</label><br><br>
+        		<input type="checkbox" name="wapiti">
+            <label for="wapiti">Wapiti</label><br><br>
+        		<input type="checkbox" name="nikto">
+            <label for="nikto">Nikto</label><br><br>
+          </div>
+        </th>
+      </dl>
+    </div>
     <br><br>
-	<dir>
-		<input type="checkbox" name="owasp">
-        <label for="owasp">OWASP ZAP</label><br><br>
-		<input type="checkbox" name="wapiti">
-        <label for="wapiti">Wapiti</label><br><br>
-		<input type="checkbox" name="nikto">
-        <label for="nikto">Nikto</label><br><br>
-		<input type="checkbox" name="w3af">
-        <label for="w3af">W3af</label><br><br>
-    </dir>
-    <br><br>
-	<dir class="submit">
-	    <input type="submit" value="Start scan">
-	</dir>
-    </form>
-    
-</body>
-</html>
+	  <div class="submit">
+	     <input type="submit" value="Start scan" name="scan">
+      <br><br><br>
+       <input type="submit" name="cancel" value="Cancel">
+	  </div>
+  </form>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<table style="border-collapse: collapse; empty-cells: show; width: 100%;">
+  <form action="" method="post"
+  <legend style="font-size: 16px;"><strong>Choose Scanner Appliance</strong></legend>
+  <div class="forms">
+    <dl class="form1">
+      <dt style="margin-top: 10px;">
+        <label for="scanner_app">Scanner Appliance:</label>
+      </dt>
+      <dd>
+        <input type="text" name="scanner_app">
+      </dd>
+    </dl>
+  </div>
+  <div class="submit">
+    <input type="submit" name="destroy" value="Apply Destroing">
+    <br><br><br><br>
+    <input type="submit" name="cancel" value="Cancel">
+  </div>
+  </form>
+</table>
+{% endblock %}

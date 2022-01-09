@@ -32,7 +32,7 @@ data "aws_ami" "latest_linux" {
 
 def get_aws_eip(tag_name="TEST_EIP", tag_owner="Oleksii Pryshchepa"):
     return '''
-resource "aws_eip" "my_static_ip" {
+resource "aws_eip" "instance_eip" {
   instance = aws_instance.my_webserver.id
   }
   tags = {
@@ -44,7 +44,7 @@ resource "aws_eip" "my_static_ip" {
 
 def get_aws_instance(ami='ami-05f7491af5eef733a', itype='t3.micro', tag_name="TEST_INSTANCE", tag_owner="Oleksii Pryshchepa"):
     return '''
-resource "aws_instance" "my_webserver" {
+resource "aws_instance" "webserver" {
   ami                    = "%s"
   instance_type          = "%s"
   vpc_security_group_ids = [aws_security_group.web_sg.id]
@@ -75,19 +75,18 @@ def get_aws_all_sg(tag_name="TEST_DSG", tag_owner="Oleksii Pryshchepa"):
     return '''
 resource "aws_security_group" "web_sg" {
   name_prefix        = "Web_SG-"
-  description = "Dynamic SecurityGroup for WebServers"
 
   ingress {
     from_port   = 0
     to_port     = 0
-    protocol    = "-1"
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
     from_port   = 0
     to_port     = 0
-    protocol    = "-1"
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 

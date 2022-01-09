@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<table style="border-collapse: collapse; empty-cells: show; width: 100%;">
+  <form action="" method="post">
+    <div class="to_scan">
+      <input type="submit" value="Start Scan" name="scan">
+    </div>
+    <div class="new_iac" style="margin-top: 10px;">
+      <input type="submit" value="Create Scanner Appliance" name="create_sa">
+    </div>
+    <div class="destroy_iac" style="margin-top: 10px;">
+      <input type="submit" value="Destroy Scanner Appliance" name="destroy_sa">
+    </div>
+    <div class="reports" style="margin-top: 10px;">
+      <input type="submit" value="See Reports" name="see_reports">
+    </div>
+    <div class="exit" style="margin-top: 10px;">
+      <input type="submit" value="Exit" name="exit">
+    </div>
+  </form>
+</table>
+
+{% endblock %}
